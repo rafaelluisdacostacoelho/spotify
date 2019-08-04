@@ -5,9 +5,9 @@ module.exports = knex
 
 // knex('artists').insert({
 //     name: 'Bruce Dickinson'
-// })
+// }).then(data => console.log(data))
 
-// knex('artists').select('*').then(resultado => console.log(resultado))
-// knex('artists').then(resultado => console.log(resultado))
-// knex('artists').first().then(resultado => console.log(resultado))
-// knex('artists').where({ id: 1 }).then(resultado => console.log(resultado))
+// knex('artists').select('*').then(result => console.log(result))
+// knex('artists').then(result => console.log(result))
+// knex('artists').first().then(result => console.log(result))
+// knex('artists').where({ id: 1 }).then(result => console.log(result))
