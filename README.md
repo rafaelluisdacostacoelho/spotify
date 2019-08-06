@@ -18,7 +18,7 @@ Execute o comando `npx knex migrate:latest` de dentro da pasta source para criar
 
 ## Iniciando o Servidor
 
-Execute `npm server.js` de dentro da pasta `src`.
+Execute `node server.js` de dentro da pasta `src`.
 
 ## Algumas considerações sobre problemas encontrados no Windows 10
 
