@@ -1,8 +1,8 @@
 exports.up = function (knex) {
     return knex.schema.createTable('albums_artists', table => {
-        table.uuid('id').primary()
-        table.uuid('artist_id').references('artists.id')
-        table.uuid('album_id').references('albums.id')
+        table.increments('id').primary()
+        table.integer('artist_id').unsigned().index().references('id').inTable('artists')
+        table.integer('album_id').unsigned().index().references('id').inTable('albums')
     })
 }
 

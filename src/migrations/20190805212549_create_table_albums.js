@@ -1,6 +1,6 @@
 exports.up = function (knex) {
     return knex.schema.createTable('albums', table => {
-        table.uuid('id').primary()
+        table.increments('id').primary()
         table.string('title', 50)
         table.integer('year')
     })

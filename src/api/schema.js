@@ -1,34 +1,25 @@
 const resolvers = require('./resolvers')
 const { makeExecutableSchema } = require('graphql-tools')
 
-const artistAttribs = `
-    id: ID,
-    name: String!
-`
-
-const albumAttribs = `
-    id: ID,
-    name: String!,
-    year: Int!
-`
-
-const musicAttribs = `
-    id: ID,
-    name: String!,
-    duration: Int!
-`
-
 const typeDefs = `
     type Artist {
-        ${artistAttribs}
+        id: ID,
+        name: String!,
+        albums: [Album]
     }
 
     type Album {
-        ${albumAttribs}
+        id: ID,
+        title: String!,
+        year: Int!,
+        artists: [Artist],
+        musics: [Music]
     }
 
     type Music {
-        ${musicAttribs}
+        id: ID,
+        name: String!,
+        albums: [Album]
     }
 
     type Query {
@@ -41,15 +32,19 @@ const typeDefs = `
     }
 
     input ArtistInput {
-        ${artistAttribs}
+        id: ID,
+        name: String!
     }
 
     input AlbumInput {
-        ${albumAttribs}
+        id: ID,
+        title: String!,
+        year: Int!
     }
 
     input MusicInput {
-        ${musicAttribs}
+        id: ID,
+        name: String!
     }
 
     type Mutation {

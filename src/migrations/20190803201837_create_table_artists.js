@@ -1,6 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable('artists', table => {
-    table.uuid('id').primary()
+    table.increments('id').primary()
     table.string('name', 50).notNullable()
   })
 }

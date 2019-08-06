@@ -1,8 +1,7 @@
 exports.up = function (knex) {
     return knex.schema.createTable('musics', table => {
-        table.uuid('id').primary()
+        table.increments('id').primary()
         table.string('name')
-        table.time('duration')
     })
 }
 
