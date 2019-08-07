@@ -4,22 +4,33 @@ const { makeExecutableSchema } = require('graphql-tools')
 const typeDefs = `
     type Artist {
         id: ID,
-        name: String!,
+        name: String,
         albums: [Album]
     }
 
     type Album {
         id: ID,
-        title: String!,
-        year: Int!,
+        title: String,
+        year: Int,
         artists: [Artist],
         musics: [Music]
     }
 
     type Music {
         id: ID,
-        name: String!,
-        albums: [Album]
+        name: String,
+        albums: [Album],
+        genre: Genre
+    }
+
+    type Genre {
+        id: ID,
+        name: String
+    }
+
+    type Playlist {
+        id: ID,
+        name: String
     }
 
     type Query {

@@ -19,6 +19,18 @@ module.exports = {
         },
         async albums() {
             return await db('albums')
+        },
+        async playlist() {
+            return await db('playlists').where({ id }).first()
+        },
+        async playlists() {
+            return await db('playlists')
+        },
+        async genre() {
+            return await db('genres').where({ id }).first()
+        },
+        async genres() {
+            return await db('genres')
         }
     },
     Mutation: {
@@ -30,6 +42,12 @@ module.exports = {
             const id = result[0]
 
             return await db('artists').where({ id }).first()
+        },
+        async updateArtist(_, { id, input }) {
+
+        },
+        async deleteArtist(_, { id }) {
+
         },
         async createMusic(_, { input }) {
             const result = await db('musics').insert({
@@ -49,6 +67,24 @@ module.exports = {
             const id = result[0]
 
             return await db('albums').where({ id }).first()
+        },
+        async createGenre(_, { input }) {
+            const result = await db('genres').insert({
+                name: input.name
+            })
+
+            const id = result[0]
+
+            return await db('genres').where({ id }).first()
+        },
+        async createPlaylist(_, { input }) {
+            const result = await db('playlists').insert({
+                name: input.name
+            })
+
+            const id = result[0]
+
+            return await db('playlists').where({ id }).first()
         }
     },
     Artist: {
@@ -59,6 +95,9 @@ module.exports = {
     Music: {
         async albums(parent) {
             return await db('albums').whereIn('id', db.from('albums_musics').where('music_id', parent.id).select('id'))
+        },
+        async genre(parent) {
+            return await db('genres').where({ id: parent.genre_id }).first()
         }
     },
     Album: {
@@ -67,6 +106,11 @@ module.exports = {
         },
         async artists(parent) {
             return await db('artists').whereIn('id', db.from('albums_artists').where('album_id', parent.id).select('id'))
+        }
+    },
+    Playlist: {
+        async musics(parent) {
+            return await db('musics').whereIn('id', db.from('playlists_musics').where('playlist_id', parent.id).select('id'))
         }
     }
 }
