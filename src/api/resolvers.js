@@ -1,116 +1,126 @@
-const db = require('../config/database')
+const database = require('../config/database')
 
 module.exports = {
     Query: {
         async artist(_, { id }) {
-            return await db('artists').where({ id }).first()
+            return await database('artists').where({ id }).first()
         },
         async artists() {
-            return await db('artists')
+            return await database('artists')
         },
         async music() {
-            return await db('musics').where({ id }).first()
+            return await database('musics').where({ id }).first()
         },
         async musics() {
-            return await db('musics')
+            return await database('musics')
         },
         async album() {
-            return await db('albums').where({ id }).first()
+            return await database('albums').where({ id }).first()
         },
         async albums() {
-            return await db('albums')
+            return await database('albums')
         },
         async playlist() {
-            return await db('playlists').where({ id }).first()
+            return await database('playlists').where({ id }).first()
         },
         async playlists() {
-            return await db('playlists')
+            return await database('playlists')
         },
         async genre() {
-            return await db('genres').where({ id }).first()
+            return await database('genres').where({ id }).first()
         },
         async genres() {
-            return await db('genres')
+            return await database('genres')
         }
     },
     Mutation: {
-        async createArtist(_, { input }) {
-            const result = await db('artists').insert({
-                name: input.name
-            })
+        artist: {
+            create: async (_, { artist }) => {
+                const [id] = await database('artists')
+                    .returning('id')
+                    .insert({
+                        name: artist.name
+                    });
 
-            const id = result[0]
+                let artist = await database('artists').where({ id }).first();
 
-            return await db('artists').where({ id }).first()
-        },
-        async updateArtist(_, { id, input }) {
-
-        },
-        async deleteArtist(_, { id }) {
-
+                return artist;
+            },
+            update: async (_, { id, artist }) => {
+                database('artists')
+                    .where({ id })
+                    .update({
+                        name: artist.name
+                    });
+            },
+            delete: async (_, { id }) => {
+                database('artists')
+                    .where({ id })
+                    .del();
+            }
         },
         async createMusic(_, { input }) {
-            const result = await db('musics').insert({
+            const result = await database('musics').insert({
                 name: input.name
             })
 
             const id = result[0]
 
-            return await db('musics').where({ id }).first()
+            return await database('musics').where({ id }).first()
         },
         async createAlbum(_, { input }) {
-            const result = await db('albums').insert({
+            const result = await database('albums').insert({
                 title: input.title,
                 year: input.year
             })
 
             const id = result[0]
 
-            return await db('albums').where({ id }).first()
+            return await database('albums').where({ id }).first()
         },
-        async createGenre(_, { input }) {
-            const result = await db('genres').insert({
-                name: input.name
-            })
+        createGenre: async (_, { genre }) => {
+            const [id] = await database('genres')
+                .returning('id')
+                .insert({
+                    name: genre.name
+                });
 
-            const id = result[0]
-
-            return await db('genres').where({ id }).first()
+            return await database('genres').where({ id }).first()
         },
         async createPlaylist(_, { input }) {
-            const result = await db('playlists').insert({
+            const result = await database('playlists').insert({
                 name: input.name
             })
 
             const id = result[0]
 
-            return await db('playlists').where({ id }).first()
+            return await database('playlists').where({ id }).first()
         }
     },
     Artist: {
         async albums(parent) {
-            return await db('albums').whereIn('id', db.from('albums_artists').where('artist_id', parent.id).select('id'))
+            return await database('albums').whereIn('id', database.from('albums_artists').where('artist_id', parent.id).select('id'))
         }
     },
     Music: {
         async albums(parent) {
-            return await db('albums').whereIn('id', db.from('albums_musics').where('music_id', parent.id).select('id'))
+            return await database('albums').whereIn('id', database.from('albums_musics').where('music_id', parent.id).select('id'))
         },
         async genre(parent) {
-            return await db('genres').where({ id: parent.genre_id }).first()
+            return await database('genres').where({ id: parent.genre_id }).first()
         }
     },
     Album: {
         async musics(parent) {
-            return await db('musics').whereIn('id', db.from('albums_musics').where('album_id', parent.id).select('id'))
+            return await database('musics').whereIn('id', database.from('albums_musics').where('album_id', parent.id).select('id'))
         },
         async artists(parent) {
-            return await db('artists').whereIn('id', db.from('albums_artists').where('album_id', parent.id).select('id'))
+            return await database('artists').whereIn('id', database.from('albums_artists').where('album_id', parent.id).select('id'))
         }
     },
     Playlist: {
         async musics(parent) {
-            return await db('musics').whereIn('id', db.from('playlists_musics').where('playlist_id', parent.id).select('id'))
+            return await database('musics').whereIn('id', database.from('playlists_musics').where('playlist_id', parent.id).select('id'))
         }
     }
 }
