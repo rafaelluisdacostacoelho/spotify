@@ -4,7 +4,7 @@ const ArtistsService = require("../services/artists.service");
 
 module.exports = {
     Query: {
-        artist: async (_, { id }) => ArtistsService.get(id),
+        artist: async (_, { id }) => await ArtistsService.get(id),
         artists: async () => await database('artists'),
         music: async () => await database('musics').where({ id }).first(),
         musics: async () => await database('musics'),
