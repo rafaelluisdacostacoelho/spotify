@@ -39,7 +39,7 @@ const typeDefs = `
     }
 
     type Query {
-        artist(id: ID!): Artist
+        artist(id: ID!): Artist,
         artists: [Artist],
         album(id: ID!): Album,
         albums: [Album],

@@ -1,8 +1,10 @@
 const database = require('../config/database')
 
+const ArtistsService = require("../services/artists.service");
+
 module.exports = {
     Query: {
-        artist: async (_, { id }) => await database('artists').where({ id }).first(),
+        artist: async (_, { id }) => ArtistsService.get(id),
         artists: async () => await database('artists'),
         music: async () => await database('musics').where({ id }).first(),
         musics: async () => await database('musics'),
@@ -65,17 +67,20 @@ module.exports = {
         }
     },
     Artist: {
-        albums: async (parent) => await database('albums').whereIn('id', database.from('albums_artists').where('artist_id', parent.id).select('id'))
+        albums: async (parent) => await database('albums').whereIn('id', database.select('id').from('albums_artists').where('artist_id', parent.id))
     },
     Music: {
-        albums: async (parent) => await database('albums').whereIn('id', database.from('albums_musics').where('music_id', parent.id).select('id')),
-        genre: async (parent) => await database('genres').where({ id: parent.genre_id }).first()
+        albums: async (music) => await database('albums').whereIn('id', database.select('id').from('albums_musics').where('music_id', music.id)),
+        genre: async (music) => await database('genres').where({ id: music.genre_id }).first()
     },
     Album: {
-        musics: async (parent) => await database('musics').whereIn('id', database.from('albums_musics').where('album_id', parent.id).select('id')),
-        artists: async (parent) => await database('artists').whereIn('id', database.from('albums_artists').where('album_id', parent.id).select('id'))
+        musics: async (parent) => await database('musics')
+            .whereIn('id', database.select('id').from('albums_musics').where('album_id', parent.id)),
+        artists: async (parent) => await database('artists')
+            .whereIn('id', database.select('id').from('albums_artists').where('album_id', parent.id))
     },
     Playlist: {
-        musics: async (parent) => await database('musics').whereIn('id', database.from('playlists_musics').where('playlist_id', parent.id).select('id'))
+        musics: async (parent) => await database('musics')
+            .whereIn('id', database.select('id').from('playlists_musics').where('playlist_id', parent.id))
     }
 }
