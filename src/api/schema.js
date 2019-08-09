@@ -2,6 +2,8 @@ const resolvers = require('./resolvers')
 const { makeExecutableSchema } = require('graphql-tools')
 
 const typeDefs = `
+    scalar DateTime
+
     type Artist {
         id: ID,
         name: String,
@@ -19,6 +21,8 @@ const typeDefs = `
     type Music {
         id: ID,
         name: String,
+        url: String,
+        duration: DateTime,
         albums: [Album],
         genre: Genre
     }
@@ -30,7 +34,8 @@ const typeDefs = `
 
     type Playlist {
         id: ID,
-        name: String
+        name: String,
+        musics: [Music]
     }
 
     type Query {
@@ -39,7 +44,11 @@ const typeDefs = `
         album(id: ID!): Album,
         albums: [Album],
         music(id: ID!): Music,
-        musics: [Music]
+        musics: [Music],
+        playlist(id: ID!): Playlist,
+        playlists: [Playlist],
+        genre(id: ID!): Genre,
+        genres: [Music]
     }
 
     input ArtistInput {
@@ -56,12 +65,28 @@ const typeDefs = `
     input MusicInput {
         id: ID,
         name: String!
+        url: String!,
+        duration: DateTime!
+    }
+
+    input PlaylistInput {
+        id: ID,
+        name: String!
+    }
+
+    input GenreInput {
+        id: ID,
+        name: String!
     }
 
     type Mutation {
-        createArtist(input: ArtistInput): Artist,
-        createAlbum(input: AlbumInput): Album,
-        createMusic(input: MusicInput): Music
+        createArtist(artist: ArtistInput): Artist,
+        updateArtist(id: ID, artist: ArtistInput): Boolean,
+        deleteArtist(id: ID, artist: ArtistInput): Boolean,
+        createAlbum(album: AlbumInput): Album,
+        createMusic(music: MusicInput): Music,
+        createGenre(genre: GenreInput): Genre,
+        createPlaylist(playlist: PlaylistInput): Playlist
     }
 `
 
