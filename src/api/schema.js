@@ -66,7 +66,7 @@ const typeDefs = `
         id: ID,
         name: String!
         url: String!,
-        duration: DateTime!
+        duration: DateTime
     }
 
     input PlaylistInput {

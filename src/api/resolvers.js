@@ -23,20 +23,18 @@ module.exports = {
             return await database('artists').where({ id }).first();
         },
         updateArtist: async (_, { id, artist }) => {
-            database('artists')
-                .where({ id })
-                .update({
-                    name: artist.name
-                });
+            return database('artists').where({ id }).update({
+                name: artist.name
+            });
         },
         deleteArtist: async (_, { id }) => {
-            database('artists')
-                .where({ id })
-                .del();
+            return database('artists').where({ id }).del();
         },
-        createMusic: async (_, { input }) => {
+        createMusic: async (_, { music }) => {
             const [id] = await database('musics').insert({
-                name: input.name
+                name: music.name,
+                url: music.url,
+                duration: music.duration
             })
 
             return await database('musics').where({ id }).first()
