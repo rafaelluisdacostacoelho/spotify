@@ -79,34 +79,43 @@ const typeDefs = gql`
         id: ID
         name: String!
     }
+    
+    type AlbumsMutation {
+        create(album: AlbumInput): Album
+        update(id: ID, album: AlbumInput): Boolean
+        delete(id: ID): Boolean
+    }
 
-    type ArtistMutation {
+    type ArtistsMutation {
         create(artist: ArtistInput): Artist
         update(id: ID, artist: ArtistInput): Boolean
         delete(id: ID): Boolean
     }
 
-    type GenreMutation {
+    type GenresMutation {
         create(genre: GenreInput): Genre
         update(id: ID, genre: GenreInput): Boolean
         delete(id: ID): Boolean
     }
 
+    type MusicsMutation {
+        create(music: MusicInput): Music
+        update(id: ID, music: MusicInput): Boolean
+        delete(id: ID): Boolean
+    }
+
+    type PlaylistsMutation {
+        create(playlist: PlaylistInput): Playlist
+        update(id: ID, playlist: PlaylistInput): Boolean
+        delete(id: ID): Boolean
+    }
+
     type Mutation {
-        artist: ArtistMutation
-        genre: GenreMutation
-        
-        albumCreate(album: AlbumInput): Album
-        albumUpdate(id: ID, album: AlbumInput): Boolean
-        albumDelete(id: ID): Boolean
-
-        musicCreate(music: MusicInput): Music
-        musicUpdate(id: ID, music: MusicInput): Boolean
-        musicDelete(id: ID): Boolean
-
-        playlistCreate(playlist: PlaylistInput): Playlist
-        playlistUpdate(id: ID, playlist: PlaylistInput): Boolean
-        playlistDelete(id: ID): Boolean
+        albums: AlbumsMutation
+        artists: ArtistsMutation
+        genres: GenresMutation
+        musics: MusicsMutation
+        playlists: PlaylistsMutation
     }
 `
 

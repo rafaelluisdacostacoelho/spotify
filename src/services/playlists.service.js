@@ -1,8 +1,13 @@
-const database = require('../config/database');
+const database = require('../settings/database');
 
 module.exports = {
-    single: async ({ id }) => await database('playlists').where({ id }).first(),
+    single: async ({ id }) =>
+        await database('playlists')
+            .where({ id })
+            .first(),
+
     list: async () => await database('playlists'),
+
     create: async ({ playlist }) => {
         const [id] = await database('playlists')
             .insert({
@@ -11,9 +16,21 @@ module.exports = {
 
         return await database('playlists').where({ id }).first();
     },
-    update: async ({ id, playlist }) => await database('playlists').where({ id }).update({
-        name: playlist.name
-    }),
-    delete: async ({ id }) => await database('playlists').where({ id }).del(),
-    listMusicsFromPlaylist: async (id) => await database('musics').whereIn('id', database.select('id').from('playlists_musics').where('playlist_id', id))
+
+    update: async ({ id, playlist }) =>
+        await database('playlists')
+            .where({ id })
+            .update({
+                name: playlist.name
+            }),
+
+    delete: async ({ id }) =>
+        await database('playlists')
+            .where({ id })
+            .del(),
+
+    listMusicsFromPlaylist: async (id) =>
+        await database('musics as x')
+            .innerJoin('playlists_musics as y', 'y.music_id', 'x.id')
+            .whereIn('y.playlist_id', '=', id)
 };
