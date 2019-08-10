@@ -1,70 +1,51 @@
 const database = require('../config/database')
 
-const ArtistsService = require("../services/artists.service");
+const artistsService = require("../services/artists.service");
+const musicsService = require("../services/musics.service");
+const albumsService = require("../services/albums.service");
+const playlistsService = require("../services/playlists.service");
+const genresService = require("../services/genres.service");
+
+const ArtistMutation = ({
+    create: async ({ artist }) => await artistsService.create({ artist }),
+    update: async ({ id, artist }) => await artistsService.update({ id, artist }),
+    delete: async ({ id }) => await artistsService.delete({ id }),
+})
+
+const GenreMutation = ({
+    create: async ({ genre }) => genresService.create({ genre }),
+    update: async ({ id, genre }) => genresService.update({ id, genre }),
+    delete: async ({ id }) => genresService.delete({ id }),
+})
 
 module.exports = {
     Query: {
-        artist: async (_, { id }) => await ArtistsService.get(id),
-        artists: async () => await database('artists'),
-        music: async () => await database('musics').where({ id }).first(),
-        musics: async () => await database('musics'),
-        album: async () => await database('albums').where({ id }).first(),
-        albums: async () => await database('albums'),
-        playlist: async () => await database('playlists').where({ id }).first(),
-        playlists: async () => await database('playlists'),
-        genre: async () => await database('genres').where({ id }).first(),
-        genres: async () => await database('genres')
+        artist: async ({ id }) => await artistsService.single({ id }),
+        artists: async () => await artistsService.list(),
+        music: async ({ id }) => await musicsService.single({ id }),
+        musics: async () => await musicsService.list(),
+        album: async ({ id }) => await albumsService.single({ id }),
+        albums: async () => await albumsService.list(),
+        playlist: async ({ id }) => await playlistsService.single({ id }),
+        playlists: async () => await playlistsService.list(),
+        genre: async ({ id }) => await genresService.single({ id }),
+        genres: async () => await genresService.list()
     },
     Mutation: {
-        createArtist: async (_, { artist }) => {
-            const [id] = await database('artists')
-                .insert({
-                    name: artist.name
-                });
+        artist: () => ArtistMutation,
+        genre: () => GenreMutation,
+        
+        musicCreate: async (_, { music }) => artistsService.create({ music }),
+        musicUpdate: async (_, { id, music }) => musicsService.update({ id, music }),
+        musicDelete: async (_, { id }) => musicsService.delete({ id }),
 
-            return await database('artists').where({ id }).first();
-        },
-        updateArtist: async (_, { id, artist }) => {
-            return database('artists').where({ id }).update({
-                name: artist.name
-            });
-        },
-        deleteArtist: async (_, { id }) => {
-            return database('artists').where({ id }).del();
-        },
-        createMusic: async (_, { music }) => {
-            const [id] = await database('musics').insert({
-                name: music.name,
-                url: music.url,
-                duration: music.duration
-            })
+        albumCreate: async (_, { album }) => albumsService.create({ album }),
+        albumUpdate: async (_, { id, album }) => albumsService.update({ id, album }),
+        albumDelete: async (_, { id }) => albumsService.delete({ id }),
 
-            return await database('musics').where({ id }).first()
-        },
-        createAlbum: async (_, { input }) => {
-            const [id] = await database('albums').insert({
-                title: input.title,
-                year: input.year
-            })
-
-            return await database('albums').where({ id }).first()
-        },
-        createGenre: async (_, { genre }) => {
-            const [id] = await database('genres')
-                .returning('id')
-                .insert({
-                    name: genre.name
-                });
-
-            return await database('genres').where({ id }).first()
-        },
-        createPlaylist: async (_, { input }) => {
-            const [id] = await database('playlists').insert({
-                name: input.name
-            })
-
-            return await database('playlists').where({ id }).first()
-        }
+        playlistCreate: async (_, { playlist }) => playlistsService.create({ playlist }),
+        playlistUpdate: async (_, { id, playlist }) => playlistsService.update({ id, playlist }),
+        playlistDelete: async (_, { id }) => playlistsService.delete({ id }),
     },
     Artist: {
         albums: async (parent) => await database('albums').whereIn('id', database.select('id').from('albums_artists').where('artist_id', parent.id))
@@ -74,13 +55,12 @@ module.exports = {
         genre: async (music) => await database('genres').where({ id: music.genre_id }).first()
     },
     Album: {
-        musics: async (parent) => await database('musics')
-            .whereIn('id', database.select('id').from('albums_musics').where('album_id', parent.id)),
-        artists: async (parent) => await database('artists')
-            .whereIn('id', database.select('id').from('albums_artists').where('album_id', parent.id))
+        musics: async (parent) =>
+            await database('musics').whereIn('id', database.select('id').from('albums_musics').where('album_id', parent.id)),
+        artists: async (parent) =>
+            await database('artists').whereIn('id', database.select('id').from('albums_artists').where('album_id', parent.id))
     },
     Playlist: {
-        musics: async (parent) => await database('musics')
-            .whereIn('id', database.select('id').from('playlists_musics').where('playlist_id', parent.id))
+        musics: async (playlist) => playlistsMusicsService.listMusicsFromPlaylist(playlist.id)
     }
 }

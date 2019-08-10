@@ -1,92 +1,112 @@
 const resolvers = require('./resolvers')
+const gql = require('graphql-tag')
 const { makeExecutableSchema } = require('graphql-tools')
 
-const typeDefs = `
+const typeDefs = gql`
     scalar DateTime
 
     type Artist {
-        id: ID,
-        name: String,
+        id: ID
+        name: String
         albums: [Album]
     }
 
     type Album {
-        id: ID,
-        title: String,
-        year: Int,
-        artists: [Artist],
+        id: ID
+        title: String
+        year: Int
+        artists: [Artist]
         musics: [Music]
     }
 
     type Music {
-        id: ID,
-        name: String,
-        url: String,
-        duration: DateTime,
-        albums: [Album],
+        id: ID
+        name: String
+        url: String
+        duration: DateTime
+        albums: [Album]
         genre: Genre
     }
 
     type Genre {
-        id: ID,
+        id: ID
         name: String
     }
 
     type Playlist {
-        id: ID,
-        name: String,
+        id: ID
+        name: String
         musics: [Music]
     }
 
     type Query {
-        artist(id: ID!): Artist,
-        artists: [Artist],
-        album(id: ID!): Album,
-        albums: [Album],
-        music(id: ID!): Music,
-        musics: [Music],
-        playlist(id: ID!): Playlist,
-        playlists: [Playlist],
-        genre(id: ID!): Genre,
+        artist(id: ID!): Artist
+        artists: [Artist]
+        album(id: ID!): Album
+        albums: [Album]
+        music(id: ID!): Music
+        musics: [Music]
+        playlist(id: ID!): Playlist
+        playlists: [Playlist]
+        genre(id: ID!): Genre
         genres: [Music]
     }
 
     input ArtistInput {
-        id: ID,
+        id: ID
         name: String!
     }
 
     input AlbumInput {
-        id: ID,
-        title: String!,
+        id: ID
+        title: String!
         year: Int!
     }
 
     input MusicInput {
-        id: ID,
+        id: ID
         name: String!
-        url: String!,
+        url: String!
         duration: DateTime
     }
 
     input PlaylistInput {
-        id: ID,
+        id: ID
         name: String!
     }
 
     input GenreInput {
-        id: ID,
+        id: ID
         name: String!
     }
 
+    type ArtistMutation {
+        create(artist: ArtistInput): Artist
+        update(id: ID, artist: ArtistInput): Boolean
+        delete(id: ID): Boolean
+    }
+
+    type GenreMutation {
+        create(genre: GenreInput): Genre
+        update(id: ID, genre: GenreInput): Boolean
+        delete(id: ID): Boolean
+    }
+
     type Mutation {
-        createArtist(artist: ArtistInput): Artist,
-        updateArtist(id: ID, artist: ArtistInput): Boolean,
-        deleteArtist(id: ID, artist: ArtistInput): Boolean,
-        createAlbum(album: AlbumInput): Album,
-        createMusic(music: MusicInput): Music,
-        createGenre(genre: GenreInput): Genre,
-        createPlaylist(playlist: PlaylistInput): Playlist
+        artist: ArtistMutation
+        genre: GenreMutation
+        
+        albumCreate(album: AlbumInput): Album
+        albumUpdate(id: ID, album: AlbumInput): Boolean
+        albumDelete(id: ID): Boolean
+
+        musicCreate(music: MusicInput): Music
+        musicUpdate(id: ID, music: MusicInput): Boolean
+        musicDelete(id: ID): Boolean
+
+        playlistCreate(playlist: PlaylistInput): Playlist
+        playlistUpdate(id: ID, playlist: PlaylistInput): Boolean
+        playlistDelete(id: ID): Boolean
     }
 `
 
