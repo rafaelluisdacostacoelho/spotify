@@ -1,16 +1,11 @@
 const database = require('../config/database')
 
-const artistsService = require("../services/artists.service");
 const musicsService = require("../services/musics.service");
 const albumsService = require("../services/albums.service");
 const playlistsService = require("../services/playlists.service");
 const genresService = require("../services/genres.service");
 
-const ArtistMutation = ({
-    create: async ({ artist }) => await artistsService.create({ artist }),
-    update: async ({ id, artist }) => await artistsService.update({ id, artist }),
-    delete: async ({ id }) => await artistsService.delete({ id }),
-})
+const ArtistMutation = require('./mutations/artists.mutation');
 
 const GenreMutation = ({
     create: async ({ genre }) => genresService.create({ genre }),
@@ -34,7 +29,7 @@ module.exports = {
     Mutation: {
         artist: () => ArtistMutation,
         genre: () => GenreMutation,
-        
+
         musicCreate: async (_, { music }) => artistsService.create({ music }),
         musicUpdate: async (_, { id, music }) => musicsService.update({ id, music }),
         musicDelete: async (_, { id }) => musicsService.delete({ id }),
