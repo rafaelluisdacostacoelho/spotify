@@ -22,7 +22,7 @@ Execute `node server.js` de dentro da pasta `src`.
 
 ## Adiciona
 
-`
+```graphql
 mutation {
   albums {
     create(album: {title: "Powerslave", year: 1984}) {
@@ -58,10 +58,10 @@ mutation {
     }
   }
 }
-`
+```
 
 ## Consulta
-`
+```graphql
 {
   albums {
     id
@@ -115,12 +115,14 @@ mutation {
     }
   }
 }
-`
+```
 
 ## Algumas considerações sobre problemas encontrados no Windows 10
 
 Ao executar o `migrate`, caso se depare com um problema ER_NOT_SUPPORTED_AUTH_MODE, tente executar o comando abaixo no Workbench:
 
-`ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root'`
+```sql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root'
+```
 
 Após isso exeute o comando `npx knex migrate:latest` novamente de dentro da pasta `src`.
