@@ -4,7 +4,7 @@ API de exemplo em que utilizo **GraphQL**, **NodeJS**, **Express**, **Knex** e *
 
 ## Primeiros Passos
 
-Aqui eu usei o **MySQL** com um esquema chamado * spotify*, mas sinta-se livre para mudar isso se desejar.
+Aqui eu usei o **MySQL** com um esquema chamado *spotify*, mas sinta-se livre para mudar isso se desejar.
 
 Crie um arquivo **.env** dentro da pasta **src** e adicione o comando a seguir.
 
