@@ -32,9 +32,13 @@ module.exports = {
             .del(),
 
     listMusicsFromAlbum: async (id) =>
-        await database('musics as x')
-            .innerJoin('albums_musics as y', 'y.music_id', 'x.id')
-            .where('y.album_id', '=', id),
+        await database('musics')
+            .whereExists(
+                await database
+                    .select('1')
+                    .from('albums_musics')
+                    .where('albums_musics.music_id', 'musics.id')
+                    .andWhere('albums_musics.album_id', id)),
 
     listArtistsFromAlbum: async (id) =>
         await database('artists as x')
