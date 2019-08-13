@@ -20,7 +20,7 @@ Execute o comando `npx knex migrate:latest` de dentro da pasta source para criar
 
 Execute `node server.js` de dentro da pasta `src`.
 
-## Adiciona
+## Vamos adicionar alguns dados via mutation
 
 ```graphql
 mutation {
@@ -60,7 +60,7 @@ mutation {
 }
 ```
 
-## Consulta
+## Agora você pode realizar umas consultas sobre esses dados
 ```graphql
 {
   albums {
