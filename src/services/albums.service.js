@@ -1,6 +1,6 @@
 const database = require('../settings/database');
 
-module.exports = {
+module.exports.albumsService = {
     single: async ({ id }) =>
         await database('albums')
             .where({ id })
@@ -38,7 +38,8 @@ module.exports = {
                     .select('1')
                     .from('albums_musics')
                     .where('albums_musics.music_id', 'musics.id')
-                    .andWhere('albums_musics.album_id', id)),
+                    .andWhere('albums_musics.album_id', id)
+                    .first()),
 
     listArtistsFromAlbum: async (id) =>
         await database('artists as x')
