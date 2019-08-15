@@ -129,5 +129,6 @@ Após isso exeute o comando `npx knex migrate:latest` novamente de dentro da pas
 
 # Referências
 
-[Text Driven Development with Node](https://mherman.org/blog/test-driven-development-with-node/)
-[Knex bag'o functions modeling many-to-many relationships in Node 2](https://alexzywiak.github.io/knex-bag-o-functions-modeling-many-to-many-relationships-in-node-2/index.html)
+* [Text Driven Development with Node](https://mherman.org/blog/test-driven-development-with-node/)
+
+* [Knex bag'o functions modeling many-to-many relationships in Node 2](https://alexzywiak.github.io/knex-bag-o-functions-modeling-many-to-many-relationships-in-node-2/index.html)
