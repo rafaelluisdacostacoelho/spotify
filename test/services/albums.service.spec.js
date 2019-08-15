@@ -22,14 +22,14 @@ describe('services/albums.service', () => {
     });
 
     it('list', () => {
-        return
+        return null;
     });
 
     it('creates a new album', () => {
-
+        return null;
     });
 
     it('updates an album', () => {
-
+        return null;
     });
 });

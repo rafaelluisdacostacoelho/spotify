@@ -1,18 +1,18 @@
-const { schema } = require('../settings/database');
+const { schema, tables } = require('../settings/database');
 
 module.exports.artistsService = {
-    single: async ({ id }) => await schema('artists').where({ id }).first(),
+    single: async ({ id }) => await schema(tables.artists).where({ id }).first(),
 
-    list: async () => await schema('artists'),
+    list: async () => await schema(tables.artists),
 
     create: async ({ artist }) => {
         const request = {
             name: artist.name
         };
 
-        const [id] = await schema('artists').insert(request);
+        const [id] = await schema(tables.artists).insert(request);
 
-        return await schema('artists').where({ id }).first();
+        return await schema(tables.artists).where({ id }).first();
     },
 
     update: async ({ id, artist }) => {
@@ -20,13 +20,15 @@ module.exports.artistsService = {
             name: artist.name
         };
 
-        return await schema('artists').where({ id }).update(request)
+        return await schema(tables.artists).where({ id }).update(request)
     },
 
-    delete: async ({ id }) => await schema('artists').where({ id }).del(),
+    delete: async ({ id }) => await schema(tables.artists).where({ id }).del(),
 
     listAlbumsFromArtist: async (id) =>
-        await schema.select('albums.*').from('albums')
-            .innerJoin('albums_artists', 'albums_artists.album_id', 'albums.id')
-            .where('albums_artists.artist_id', id)
+        await schema
+            .select(`${tables.albums}.*`)
+            .from(tables.albums)
+            .innerJoin(tables.albums_artists, `${tables.albums_artists}.album_id`, `${tables.albums}.id`)
+            .where(`${tables.albums_artists}.artist_id`, id)
 };

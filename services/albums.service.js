@@ -1,9 +1,9 @@
-const { schema } = require('../settings/database');
+const { schema, tables } = require('../settings/database');
 
 module.exports.albumsService = {
-    single: async ({ id }) => await schema('albums').where({ id }).first(),
+    single: async ({ id }) => await schema(tables.albums).where({ id }).first(),
 
-    list: async () => await schema('albums'),
+    list: async () => await schema(tables.albums),
 
     create: async ({ album }) => {
         const request = {
@@ -11,9 +11,9 @@ module.exports.albumsService = {
             year: album.year
         };
 
-        const [id] = await schema('albums').insert(request);
+        const [id] = await schema(tables.albums).insert(request);
 
-        return await schema('albums').where({ id }).first();
+        return await schema(tables.albums).where({ id }).first();
     },
 
     update: async ({ id, album }) => {
@@ -22,20 +22,24 @@ module.exports.albumsService = {
             year: album.year
         };
 
-        return await schema('albums')
+        return await schema(tables.albums)
             .where({ id })
             .update(request);
     },
 
-    delete: async ({ id }) => await schema('albums').where({ id }).del(),
+    delete: async ({ id }) => await schema(tables.albums).where({ id }).del(),
 
     listMusicsFromAlbum: async (id) =>
-        await schema.select('musics.*').from('musics')
-            .innerJoin('albums_musics', 'albums_musics.music_id', 'musics.id')
-            .where('albums_musics.album_id', id),
+        await schema
+            .select(`${tables.musics}.*`)
+            .from(tables.musics)
+            .innerJoin(tables.albums_musics, `${tables.albums_musics}.music_id`, `${tables.musics}.id`)
+            .where(`${tables.albums_musics}.album_id`, id),
 
     listArtistsFromAlbum: async (id) =>
-        await schema.select('*').from('artists')
-            .innerJoin('albums_artists', 'albums_artists.artist_id', 'artists.id')
-            .where('albums_artists.album_id', id)
+        await schema
+            .select(`${tables.artists}.*`)
+            .from(tables.artists)
+            .innerJoin(tables.albums_artists, `${tables.albums_artists}.artist_id`, `${tables.artists}.id`)
+            .where(`${tables.albums_artists}.album_id`, id)
 };

@@ -1,18 +1,18 @@
-const { schema } = require('../settings/database');
+const { schema, tables } = require('../settings/database');
 
 module.exports.genresService = {
-    single: async ({ id }) => await schema('genres').where({ id }).first(),
+    single: async ({ id }) => await schema(tables.genres).where({ id }).first(),
 
-    list: async () => await schema('genres'),
+    list: async () => await schema(tables.genres),
 
     create: async ({ genre }) => {
         const request = {
             name: genre.name
         };
 
-        const [id] = await schema('genres').insert(request);
+        const [id] = await schema(tables.genres).insert(request);
 
-        return await schema('genres').where({ id }).first();
+        return await schema(tables.genres).where({ id }).first();
     },
 
     update: async ({ id, genre }) => {
@@ -20,8 +20,8 @@ module.exports.genresService = {
             name: genre.name
         };
 
-        return await schema('genres').where({ id }).update(request);
+        return await schema(tables.genres).where({ id }).update(request);
     },
 
-    delete: async ({ id }) => await schema('genres').where({ id }).del()
+    delete: async ({ id }) => await schema(tables.genres).where({ id }).del()
 };
