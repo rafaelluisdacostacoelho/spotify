@@ -1,4 +1,4 @@
-const playlistsService = require("../../services/playlists.service");
+const { playlistsService } = require("../../services/playlists.service");
 
 module.exports = ({
     create: async ({ playlist }) => await playlistsService.create({ playlist }),

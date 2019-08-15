@@ -1,10 +1,8 @@
-const database = require('../settings/database')
-
-const albumsService = require("../services/albums.service");
-const artistsService = require("../services/artists.service");
-const genresService = require("../services/genres.service");
-const musicsService = require("../services/musics.service");
-const playlistsService = require("../services/playlists.service");
+const { albumsService } = require("../services/albums.service");
+const { artistsService } = require("../services/artists.service");
+const { genresService } = require("../services/genres.service");
+const { musicsService } = require("../services/musics.service");
+const { playlistsService } = require("../services/playlists.service");
 
 const AlbumsMutation = require('./mutations/albums.mutation');
 const ArtistsMutation = require('./mutations/artists.mutation');

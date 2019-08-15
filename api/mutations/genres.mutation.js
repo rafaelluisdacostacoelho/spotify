@@ -1,4 +1,4 @@
-const genresService = require("../../services/genres.service");
+const { genresService } = require("../../services/genres.service");
 
 module.exports = ({
     create: async ({ genre }) => await genresService.create({ genre }),

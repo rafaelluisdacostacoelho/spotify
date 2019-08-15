@@ -1,4 +1,4 @@
-const musicsService = require("../../services/musics.service");
+const { musicsService } = require("../../services/musics.service");
 
 module.exports = ({
     create: async ({ music }) => await musicsService.create({ music }),
