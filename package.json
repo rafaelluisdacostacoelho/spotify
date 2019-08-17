@@ -1,13 +1,14 @@
 {
   "name": "spotify",
   "version": "1.0.0",
-  "description": "",
+  "description": "A NodeJS project that uses GraphQL, Express and Knex.",
+  "author": "Rafael Luis da Costa Coelho",
+  "license": "ISC",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "mocha --exit"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "express": "4.17.1",
     "express-graphql": "0.9.0",
@@ -15,9 +16,7 @@
     "graphql-tag": "^2.10.1",
     "graphql-tools": "4.0.5",
     "knex": "0.19.1",
-    "mysql": "2.17.1"
-  },
-  "devDependencies": {
+    "mysql": "2.17.1",
     "chai": "^4.2.0",
     "mocha": "^6.2.0"
   }
