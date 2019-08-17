@@ -1,29 +1,20 @@
 const { assert } = require('chai');
-const { schema, tables } = require('../../settings/database');
-
 const { albumsService } = require('../../services/albums.service');
 
-const albumTitle = 'new album';
-const albumYear = 1999;
-
-describe('test the albums service', () => {
-    // afterEach(() => {
-    //     return schema(tables.albums).del();
-    // });
-
-    it('single', () => {
-        assert.equal(albumTitle, albumTitle);
+module.exports = () => {
+    it('should return a single album', () => {
+        assert.equal(1, 1);
     });
 
-    it('list', () => {
-        assert.equal(albumTitle, albumTitle);
+    it('should list all albums', () => {
+        assert.equal(1, 1);
     });
 
-    it('creates a new album', () => {
-        assert.equal(albumTitle, albumTitle);
+    it('should create an album', () => {
+        assert.equal(1, 1);
     });
 
-    it('updates an album', () => {
-        assert.equal(albumTitle, albumTitle);
+    it('should updates an album', () => {
+        assert.equal(1, 1);
     });
-});
+};

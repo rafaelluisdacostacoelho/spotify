@@ -1,10 +1,10 @@
 language: node_js
-node_js: 
+node_js:
   - "10"
   - "11"
 before_install:
   - npm install -g mocha
 install:
   - npm install
-script:  
+script:
   - npm test
