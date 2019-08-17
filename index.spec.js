@@ -1,12 +1,23 @@
-const express = require('express')
-const graphqlHTTP = require('express-graphql')
-const schema = require('./api/schema')
+const { assert } = require('chai');
 
-const app = express()
+describe('test the albums service', () => {
+    // afterEach(() => {
+    //     return schema(tables.albums).del();
+    // });
 
-app.use('/api', graphqlHTTP({
-    schema,
-    graphiql: true
-}))
+    it('single', () => {
+        assert.equal(1, 1);
+    });
 
-app.listen(4000, () => console.log('Executando...'))
+    it('list', () => {
+        assert.equal(1, 1);
+    });
+
+    it('creates a new album', () => {
+        assert.equal(1, 1);
+    });
+
+    it('updates an album', () => {
+        assert.equal(1, 1);
+    });
+});
