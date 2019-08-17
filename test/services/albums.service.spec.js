@@ -1,7 +1,7 @@
 const { assert } = require('chai');
-const { schema, tables } = require('../../src/settings/database');
+const { schema, tables } = require('../../settings/database');
 
-const { albumsService } = require('./src/services/albums.service');
+const { albumsService } = require('../../services/albums.service');
 
 const albumTitle = 'new album';
 const albumYear = 1999;
