@@ -13,5 +13,3 @@ module.exports.tables = {
     playlists: 'playlists',
     playlists_musics: 'playlists_musics'
 }
-
-// https://alexzywiak.github.io/knex-bag-o-functions-modeling-many-to-many-relationships-in-node-2/index.html
