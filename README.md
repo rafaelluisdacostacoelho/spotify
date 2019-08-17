@@ -1,4 +1,4 @@
-# Spotify
+# Spotify [![Build Status](https://travis-ci.org/rafaelluisdacostacoelho/spotify.svg?branch=master)](https://travis-ci.org/rafaelluisdacostacoelho/spotify)
 
 API de exemplo em que utilizo **GraphQL**, **NodeJS**, **Express**, **Knex** e **MySQL**.
 
