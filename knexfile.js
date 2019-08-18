@@ -1,6 +1,10 @@
-const dotenv = require('dotenv');
+const environment = process.env.NODE_ENV;
 
-dotenv.config();
+if (environment === 'development') {
+  const dotenv = require('dotenv');
+
+  dotenv.config();
+}
 
 module.exports = {
   test: {
