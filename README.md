@@ -18,7 +18,11 @@ Execute o comando `npx knex migrate:latest` de dentro da pasta source para criar
 
 ## Iniciando o Servidor
 
-Execute `node server.js` de dentro da pasta `src`.
+Execute o comando `npm start`.
+
+## Testes Unitários e de Integração
+
+Execute o comando `npm test`.
 
 ## Vamos adicionar alguns dados via mutation
 
@@ -119,7 +123,7 @@ mutation {
 
 ## Algumas considerações sobre problemas encontrados no Windows 10
 
-Ao executar o `migrate`, caso se depare com um problema ER_NOT_SUPPORTED_AUTH_MODE, tente executar o comando abaixo no Workbench:
+Ao executar o `npm run migrate`, caso se depare com um problema **ER_NOT_SUPPORTED_AUTH_MODE**, tente executar o comando abaixo no MySQL.
 
 ```sql
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root'

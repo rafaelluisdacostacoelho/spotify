@@ -11,7 +11,10 @@ module.exports = {
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
+      directory: __dirname + '/persistences/migrations'
+    },
+    seeds: {
+      directory: __dirname + '/persistences/seeds'
     }
   },
   development: {
@@ -26,7 +29,10 @@ module.exports = {
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
+      directory: __dirname + '/persistences/migrations'
+    },
+    seeds: {
+      directory: __dirname + '/persistences/seeds'
     }
   }
 };

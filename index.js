@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'development';
+
 const express = require('express')
 const graphqlHTTP = require('express-graphql')
 const schema = require('./api/schema')

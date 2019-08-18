@@ -1,4 +1,5 @@
-const { schema, tables } = require('../settings/database');
+const { schema } = require('../persistences/knex');
+const { tables } = require('../persistences/tables');
 
 module.exports.playlistsService = {
     single: async ({ id }) => await schema(tables.playlists).where({ id }).first(),
