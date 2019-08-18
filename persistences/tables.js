@@ -1,4 +1,4 @@
-module.exports.tables = {
+module.exports = {
     albums: 'albums',
     albums_artists: 'albums_artists',
     albums_musics: 'albums_musics',

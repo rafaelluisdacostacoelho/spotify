@@ -1,5 +1,7 @@
 const { assert } = require('chai');
 
+const knex = require('../../persistences/knex');
+
 module.exports = () => {
     beforeEach((done) => {
         done();

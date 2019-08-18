@@ -1,4 +1,4 @@
-const { tables } = require('../tables');
+const tables = require('../tables');
 
 exports.seed = async (knex) => {
     return await knex(tables.albums).del().then(async () => {

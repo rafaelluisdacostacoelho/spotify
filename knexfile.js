@@ -1,10 +1,15 @@
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 module.exports = {
   test: {
     client: 'mysql',
     connection: {
-      database: 'spotify_test',
-      user: 'root',
-      password: 'root'
+      server: process.env.MYSQL_HOST_TEST,
+      database: process.env.MYSQL_DATABASE_TEST,
+      user: process.env.MYSQL_USER_TEST,
+      password: process.env.MYSQL_PASSWORD_TEST
     },
     pool: {
       min: 2,
@@ -20,9 +25,9 @@ module.exports = {
   development: {
     client: 'mysql',
     connection: {
-      database: 'spotify',
-      user: 'root',
-      password: 'root'
+      database: process.env.MYSQL_DATABASE_DEVELOPMENT,
+      user: process.env.MYSQL_USER_DEVELOPMENT,
+      password: process.env.MYSQL_PASSWORD_DEVELOPMENT
     },
     pool: {
       min: 2,
