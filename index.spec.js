@@ -8,22 +8,18 @@ const genresServiceSpec = require('./test/services/genres.service.spec');
 const musicsServiceSpec = require('./test/services/musics.service.spec');
 const playlistsServiceSpec = require('./test/services/playlists.service.spec');
 
-describe('index test', async () => {
-    // beforeEach(async (done) => {
-    //     await schema.migrate.rollback().then(async () => {
-    //         await schema.migrate.latest().then(async () => {
-    //             await schema.seed.run().then(async () => {
-    //                 await done();
-    //             }, () => done());
-    //         }, () => done());
-    //     }, () => done());
-    // });
+describe('index test', () => {
+    beforeEach((done) => {
+        schema.migrate.latest().then(() => {
+            schema.seed.run().then(() => {
+                done();
+            });
+        });
+    });
 
-    // afterEach(async (done) => {
-    //     await schema.migrate.rollback().then(async () => {
-    //         await done();
-    //     }, () => done());
-    // });
+    afterEach((done) => {
+        done();
+    });
 
     describe('albums service', albumsServiceSpec.bind(this));
     describe('artists service', artistsServiceSpec.bind(this));

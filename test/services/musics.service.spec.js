@@ -1,20 +1,16 @@
 const { assert } = require('chai');
-const { musicsService } = require('../../services/musics.service');
 
 module.exports = () => {
-    it('should return a single music', () => {
-        assert.equal(1, 1);
+    beforeEach((done) => {
+        done();
     });
 
-    it('should list all musics', () => {
-        assert.equal(1, 1);
+    afterEach((done) => {
+        done();
     });
 
-    it('should create an music', () => {
+    it('should return a single music', (done) => {
         assert.equal(1, 1);
-    });
-
-    it('should updates an music', () => {
-        assert.equal(1, 1);
+        done();
     });
 };

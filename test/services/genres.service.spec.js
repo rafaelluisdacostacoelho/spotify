@@ -1,20 +1,16 @@
 const { assert } = require('chai');
-const { genresService } = require('../../services/genres.service');
 
 module.exports = () => {
-    it('should return a single genre', () => {
-        assert.equal(1, 1);
+    beforeEach((done) => {
+        done();
     });
 
-    it('should list all genres', () => {
-        assert.equal(1, 1);
+    afterEach((done) => {
+        done();
     });
 
-    it('should create an genre', () => {
+    it('should return a single genre', (done) => {
         assert.equal(1, 1);
-    });
-
-    it('should updates an genre', () => {
-        assert.equal(1, 1);
+        done();
     });
 };

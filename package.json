@@ -8,7 +8,8 @@
   "scripts": {
     "start": "node index.js",
     "migrate": "npx knex migrate:latest",
-    "test": "npx mocha index.spec.js"
+    "test": "npx mocha index.spec.js",
+    "debug": "npx mocha index.spec.js --nolazy --inspect-brk=9229"
   },
   "dependencies": {
     "express": "4.17.1",
