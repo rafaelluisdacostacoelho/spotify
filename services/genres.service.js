@@ -1,19 +1,19 @@
-const { schema } = require('../persistences/knex');
+const knex = require('../persistences/knex');
 const { tables } = require('../persistences/tables');
 
 module.exports.genresService = {
-    single: async ({ id }) => await schema(tables.genres).where({ id }).first(),
+    single: async ({ id }) => await knex(tables.genres).where({ id }).first(),
 
-    list: async () => await schema(tables.genres),
+    list: async () => await knex(tables.genres),
 
     create: async ({ genre }) => {
         const request = {
             name: genre.name
         };
 
-        const [id] = await schema(tables.genres).insert(request);
+        const [id] = await knex(tables.genres).insert(request);
 
-        return await schema(tables.genres).where({ id }).first();
+        return await knex(tables.genres).where({ id }).first();
     },
 
     update: async ({ id, genre }) => {
@@ -21,8 +21,8 @@ module.exports.genresService = {
             name: genre.name
         };
 
-        return await schema(tables.genres).where({ id }).update(request);
+        return await knex(tables.genres).where({ id }).update(request);
     },
 
-    delete: async ({ id }) => await schema(tables.genres).where({ id }).del()
+    delete: async ({ id }) => await knex(tables.genres).where({ id }).del()
 };

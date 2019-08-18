@@ -1,10 +1,10 @@
-const { schema } = require('../persistences/knex');
+const knex = require('../persistences/knex');
 const { tables } = require('../persistences/tables');
 
 module.exports.albumsService = {
-    single: async ({ id }) => await schema(tables.albums).where({ id }).first(),
+    single: async ({ id }) => await knex(tables.albums).where({ id }).first(),
 
-    list: async () => await schema(tables.albums),
+    list: async () => await knex(tables.albums),
 
     create: async ({ album }) => {
         const request = {
@@ -12,9 +12,9 @@ module.exports.albumsService = {
             year: album.year
         };
 
-        const [id] = await schema(tables.albums).insert(request);
+        const [id] = await knex(tables.albums).insert(request);
 
-        return await schema(tables.albums).where({ id }).first();
+        return await knex(tables.albums).where({ id }).first();
     },
 
     update: async ({ id, album }) => {
@@ -23,22 +23,22 @@ module.exports.albumsService = {
             year: album.year
         };
 
-        return await schema(tables.albums)
+        return await knex(tables.albums)
             .where({ id })
             .update(request);
     },
 
-    delete: async ({ id }) => await schema(tables.albums).where({ id }).del(),
+    delete: async ({ id }) => await knex(tables.albums).where({ id }).del(),
 
     listMusicsFromAlbum: async (id) =>
-        await schema
+        await knex
             .select(`${tables.musics}.*`)
             .from(tables.musics)
             .innerJoin(tables.albums_musics, `${tables.albums_musics}.music_id`, `${tables.musics}.id`)
             .where(`${tables.albums_musics}.album_id`, id),
 
     listArtistsFromAlbum: async (id) =>
-        await schema
+        await knex
             .select(`${tables.artists}.*`)
             .from(tables.artists)
             .innerJoin(tables.albums_artists, `${tables.albums_artists}.artist_id`, `${tables.artists}.id`)
