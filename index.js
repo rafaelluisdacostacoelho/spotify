@@ -1,4 +1,4 @@
-process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'develop';
 
 const express = require('express')
 const graphqlHTTP = require('express-graphql')
