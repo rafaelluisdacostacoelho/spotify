@@ -1,7 +1,5 @@
 process.env.NODE_ENV = 'test';
 
-const knex = require('./persistences/knex');
-
 const albumsServiceSpec = require('./test/services/albums.service.spec');
 const artistsServiceSpec = require('./test/services/artists.service.spec');
 const genresServiceSpec = require('./test/services/genres.service.spec');
@@ -10,11 +8,7 @@ const playlistsServiceSpec = require('./test/services/playlists.service.spec');
 
 describe('index test', () => {
     beforeEach((done) => {
-        knex.migrate.latest().then(() => {
-            knex.seed.run().then(() => {
-                done();
-            });
-        });
+        done();
     });
 
     afterEach((done) => {

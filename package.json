@@ -8,8 +8,8 @@
   "scripts": {
     "start": "node index.js",
     "migrate": "npx knex migrate:latest",
-    "test": "npx mocha index.spec.js",
-    "debug": "npx mocha index.spec.js --nolazy --inspect-brk=9229"
+    "test": "npx mocha --timeout 10000 index.spec.js",
+    "debug": "npx mocha --timeout 10000 index.spec.js --nolazy --inspect-brk=9229"
   },
   "dependencies": {
     "dotenv": "^8.1.0",
@@ -18,12 +18,15 @@
     "graphql": "14.4.2",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "4.0.5",
-    "knex": "0.19.1",
+    "knex": "0.19.2",
+    "body-parse": "0.1.0",
+    "ejs": "2.6.2",
+    "aws-sdk": "2.515.0",
     "mysql": "2.17.1"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "mocha": "^6.2.0"
+    "chai": "4.2.0",
+    "mocha": "^6.2.0",
+    "mock-knex": "^0.4.6"
   }
 }
