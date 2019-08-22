@@ -14,16 +14,16 @@ tracker.on('query', function checkResult(query) {
     assert.equal(query.method, 'first');
     query.response([{
         id: 1,
-        title: 'TESTE 1',
-        year: 1998
+        title: 'Fear of the Dark',
+        year: 1992
     }, {
         id: 2,
-        title: 'TESTE 2',
-        year: 2016
+        title: 'Killers',
+        year: 1981
     }, {
         id: 3,
-        title: 'TESTE 3',
-        year: 1945
+        title: 'Brave New World',
+        year: 2000
     }]);
 });
 
@@ -40,7 +40,7 @@ module.exports = () => {
         const album = await albumsService.single({ id: 1 });
 
         assert.equal(album.id, 1);
-        assert.equal(album.title, 'TESTE 1');
-        assert.equal(album.year, 1998);
+        assert.equal(album.title, 'Fear of the Dark');
+        assert.equal(album.year, 1992);
     });
 };
