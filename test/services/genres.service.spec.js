@@ -1,18 +1,11 @@
 const { assert } = require('chai');
 
-const knex = require('../../persistences/knex');
+const tracker = require('mock-knex').getTracker();
+
+tracker.install();
 
 module.exports = () => {
-    beforeEach((done) => {
-        done();
-    });
-
-    afterEach((done) => {
-        done();
-    });
-
-    it('should return a single genre', (done) => {
+    it('should return a single genre', () => {
         assert.equal(1, 1);
-        done();
     });
 };

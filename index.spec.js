@@ -6,15 +6,11 @@ const genresServiceSpec = require('./test/services/genres.service.spec');
 const musicsServiceSpec = require('./test/services/musics.service.spec');
 const playlistsServiceSpec = require('./test/services/playlists.service.spec');
 
+const knex = require('./persistences/knex');
+
+require('mock-knex').mock(knex);
+
 describe('index test', () => {
-    beforeEach((done) => {
-        done();
-    });
-
-    afterEach((done) => {
-        done();
-    });
-
     describe('albums service', albumsServiceSpec.bind(this));
     describe('artists service', artistsServiceSpec.bind(this));
     describe('genres service', genresServiceSpec.bind(this));

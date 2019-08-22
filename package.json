@@ -8,8 +8,8 @@
   "scripts": {
     "start": "node index.js",
     "migrate": "npx knex migrate:latest",
-    "test": "npx mocha --timeout 10000 index.spec.js",
-    "debug": "npx mocha --timeout 10000 index.spec.js --nolazy --inspect-brk=9229"
+    "test": "npx mocha index.spec.js",
+    "debug": "npx mocha index.spec.js --nolazy --inspect-brk=9229"
   },
   "dependencies": {
     "dotenv": "^8.1.0",

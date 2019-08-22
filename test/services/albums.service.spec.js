@@ -2,10 +2,6 @@ const { assert } = require('chai');
 
 const { albumsService } = require('../../services/albums.service');
 
-const knex = require('../../persistences/knex');
-
-require('mock-knex').mock(knex);
-
 const tracker = require('mock-knex').getTracker();
 
 tracker.install();
@@ -28,14 +24,6 @@ tracker.on('query', function checkResult(query) {
 });
 
 module.exports = () => {
-    beforeEach((done) => {
-        done();
-    });
-
-    afterEach((done) => {
-        done();
-    });
-
     it('should return a single album', async () => {
         const album = await albumsService.single({ id: 1 });
 
