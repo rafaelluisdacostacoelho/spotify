@@ -1,6 +1,6 @@
 const { assert } = require('chai');
 
-const { albumsService } = require('../../services/albums.service');
+const albumsService = require('../../services/albums.service');
 
 const tracker = require('mock-knex').getTracker();
 

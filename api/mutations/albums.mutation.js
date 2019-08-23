@@ -1,4 +1,4 @@
-const { albumsService } = require("../../services/albums.service");
+const albumsService = require("../../services/albums.service");
 
 module.exports = ({
     create: async ({ album }) => await albumsService.create({ album }),

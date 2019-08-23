@@ -1,7 +1,7 @@
 const knex = require('../persistences/knex');
 const tables = require('../persistences/tables');
 
-module.exports.albumsService = {
+module.exports = {
     single: async ({ id }) => await knex(tables.albums).where({ id }).first(),
 
     list: async () => await knex(tables.albums),

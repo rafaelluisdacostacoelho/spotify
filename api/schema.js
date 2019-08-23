@@ -1,6 +1,6 @@
-const resolvers = require('./resolvers')
-const gql = require('graphql-tag')
-const { makeExecutableSchema } = require('graphql-tools')
+const resolvers = require('./resolvers');
+const gql = require('graphql-tag');
+const { makeExecutableSchema } = require('graphql-tools');
 
 const typeDefs = gql`
     scalar DateTime
