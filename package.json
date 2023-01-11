@@ -16,7 +16,7 @@
     "graphql": "14.4.2",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "4.0.5",
-    "knex": "0.19.1",
+    "knex": "2.4.0",
     "mysql": "2.17.1"
   },
   "devDependencies": {
